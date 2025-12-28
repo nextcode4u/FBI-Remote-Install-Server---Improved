@@ -5,6 +5,8 @@ A **simple, colorful helper** for installing CIAs over the network using
 
 Designed to be **more reliable** and **less annoying** than the stock workflow.
 
+Simply download the Master.zip
+
 ---
 
 ## Features
