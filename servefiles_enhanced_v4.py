@@ -2,7 +2,6 @@
 # servefiles_enhanced_v4.py
 #
 # v4 changes (per request):
-# ✅ Remove hard-coded "default IP"
 # ✅ Maintain a history of previously used 3DS IPs
 # ✅ On startup, present a selectable list so you don't have to re-type
 #
