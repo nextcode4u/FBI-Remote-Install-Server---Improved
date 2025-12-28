@@ -12,7 +12,7 @@ Designed to be **more reliable** and **less annoying** than the stock workflow.
 - **IP history**
   - Enter your 3DS IP once
   - Next runs let you **pick from a list**
-- Drag & drop a CIA **or a folder**
+- Drag & drop a CIA **or a folder** onto .Bat or .SH script
 - Batch installs
 - Live progress:
   - % complete
