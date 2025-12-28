@@ -1,43 +1,117 @@
-# FBI Remote Install Enhanced (v3)
+# FBI Remote Install Enhanced (v4)
 
-A **colorful, tolerant, quality-of-life–focused** enhancement of the classic `servefiles.py` workflow for **FBI Remote Install** on Nintendo 3DS.
+A **colorful, tolerant** helper for **FBI → Remote Install → Receive URLs over the network**, with a big usability upgrade:
 
-This project is designed to make **network CIA installs less painful**, more informative, and more resilient to FBI’s flaky ACK behavior.
+✅ **No hard-coded default IP**  
+✅ Keeps a **history of your previously used 3DS IPs** and lets you **pick from a menu** next time  
+✅ Still has the v3 goodies: live speed, % progress, ETA, batch progress, hotkey re-send, logs
 
 ---
 
 ## ✨ Features
 
-### 🚀 Core Improvements
-- **Default 3DS IP**: `192.168.1.76` (press Enter to accept)
-- **Drag & drop** a single CIA *or* an entire folder
-- **Batch installs** (multiple CIAs sent at once)
-- **Fire-and-forget URL sending**
-  - Missing ACKs no longer kill the run
-- **Hotkey controls while running**
-  - `R + Enter` → re-send URLs
-  - `Q + Enter` → quit cleanly
+- **IP History Picker**
+  - First run: type your 3DS IP
+  - Next runs: choose from a numbered list (press Enter to use the most recent)
+  - Stored locally in: `ip_history.json` (same folder as the script)
+
+- **Tolerant / Fire-and-forget URL push**
+  - If FBI doesn’t ACK in time, it **warns** but keeps serving
+
+- **Live stats (host-side)**
+  - Per-file: % / MB/s / ETA
+  - Batch: overall % / overall MB/s
+
+- **Hotkeys**
+  - `R + Enter` → re-send URLs (no restart)
+  - `Q + Enter` → quit
   - `H + Enter` → help
 
-### 📊 Live Transfer Stats
-- Per-file **percent complete**
-- Per-file **speed (MB/s)**
-- Per-file **ETA**
-- **Overall batch progress**
-  - Total percent
-  - Total throughput (MB/s)
-- **Very colorful ANSI output** (Windows Terminal / modern shells)
-
-### 📝 Logging
-Each run creates a timestamped log file containing:
-- Full URL list sent to FBI
-- Start/stop times
-- Per-file transfer results
-- Warnings vs hard failures
+- **Logs**
+  - Every run creates a timestamped log that includes the URL list
 
 ---
 
-## 📦 Download
+## 📦 Bundle Contents
 
-Grab the latest bundle from the repo releases or use the included ZIP:
+- `servefiles_enhanced_v4.py`
+- `FBI_remote_install_enhanced_v4.bat` (Windows)
+- `FBI_remote_install_enhanced_v4.sh` (Linux/macOS)
 
+---
+
+## ✅ Requirements
+
+- Python 3.7+
+- FBI installed on 3DS
+- 3DS and PC on the same LAN
+- Best color support:
+  - Windows Terminal (recommended)
+  - Most Linux/macOS terminals
+
+---
+
+## ▶️ Usage
+
+### 1) On your 3DS
+Open:
+```
+FBI → Remote Install → Receive URLs over the network
+```
+Leave that screen open.
+
+### 2) Windows (drag & drop)
+Drag a `.cia` OR a folder onto:
+```
+FBI_remote_install_enhanced_v4.bat
+```
+
+### 3) Linux/macOS
+```bash
+chmod +x FBI_remote_install_enhanced_v4.sh
+./FBI_remote_install_enhanced_v4.sh /path/to/cia_or_folder
+```
+
+---
+
+## ⚠️ Important limitation (FBI protocol)
+
+FBI’s URL-receive protocol does **not** report install success/failure back to the PC.
+
+This tool can confirm:
+- the URL list was sent
+- files were transferred (you’ll see progress + DONE lines)
+
+It cannot confirm:
+- “install failed due to space/ticket/etc.”
+
+---
+
+## 🔧 Optional config
+
+You can tweak behavior in the wrapper scripts or run Python directly:
+
+```bash
+python servefiles_enhanced_v4.py "./cias" --ack-wait 1 --retries 3 --chunk-kb 256
+```
+
+Useful flags:
+- `--ack-wait` (non-fatal ACK wait seconds)
+- `--retries` / `--retry-delay`
+- `--chunk-kb`
+
+---
+
+## 📝 IP History Notes
+
+- Stored in `ip_history.json` next to the script
+- Keeps up to 20 entries
+- Most recent IP is at the top
+
+To reset the list, delete `ip_history.json`.
+
+---
+
+## License
+
+Same license as the upstream FBI servefiles workflow (see upstream repo / original license).
